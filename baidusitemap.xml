@@ -5,7 +5,7 @@
     
     
   <url>
-    <loc>http://sunnycn2013.github.io/2016/05/18/architecture_ios/</loc>
+    <loc>http://fengzhihen.com/2016/05/18/architecture_ios/</loc>
     <lastmod>2016-05-18T14:01:22.000Z</lastmod>
     <data>
         <display>
@@ -26,7 +26,7 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2015/10/24/aop-ios/</loc>
+    <loc>http://fengzhihen.com/2015/10/24/aop-ios/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -47,7 +47,7 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2015/10/01/cell_height_calulate/</loc>
+    <loc>http://fengzhihen.com/2015/10/01/cell_height_calulate/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -72,7 +72,7 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2016/01/10/hexo-course/</loc>
+    <loc>http://fengzhihen.com/2016/01/10/hexo-course/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -95,26 +95,7 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2015/12/22/mvp-ios/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>基于面向协议MVP模式下的软件设计－iOS篇 </title>
-        <pubTime>2015-12-21T16:00:00.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>电子商务</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://sunnycn2013.github.io/2016/01/12/ios-mvvm-1/</loc>
+    <loc>http://fengzhihen.com/2016/01/12/ios-mvvm-1/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -141,7 +122,34 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2016/01/02/abouts/</loc>
+    <loc>http://fengzhihen.com/2016/01/13/ios-mvvm-2/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>漫谈iOS开发框架之MVVM(二)</title>
+        <pubTime>2016-01-12T16:00:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>电子商务</tag>
+         
+        <tag>MVVM</tag>
+         
+        <tag>MVV</tag>
+         
+        <tag>MVP</tag>
+         
+        <tag>iOS开发框架</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://fengzhihen.com/2016/01/02/abouts/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -164,24 +172,16 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2016/01/17/protocol_mvvm/</loc>
+    <loc>http://fengzhihen.com/2015/12/22/mvp-ios/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>一种基于面相协议的MVVM设计思路</title>
-        <pubTime>2016-01-16T16:00:00.000Z</pubTime>
+        <title>基于面向协议MVP模式下的软件设计－iOS篇 </title>
+        <pubTime>2015-12-21T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
         <tag>电子商务</tag>
-         
-        <tag>MVVM</tag>
-         
-        <tag>MVV</tag>
-         
-        <tag>MVP</tag>
-         
-        <tag>iOS开发框架</tag>
          
          
            
@@ -191,7 +191,7 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2016/01/11/qianduan/</loc>
+    <loc>http://fengzhihen.com/2016/01/11/qianduan/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -212,7 +212,7 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2015/11/09/react-native-cut/</loc>
+    <loc>http://fengzhihen.com/2015/11/09/react-native-cut/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -233,7 +233,7 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2015/11/29/xcode7-xctest/</loc>
+    <loc>http://fengzhihen.com/2015/11/29/xcode7-xctest/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
@@ -254,12 +254,12 @@
 
     
   <url>
-    <loc>http://sunnycn2013.github.io/2016/01/13/ios-mvvm-2/</loc>
+    <loc>http://fengzhihen.com/2016/01/17/protocol_mvvm/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>漫谈iOS开发框架之MVVM(二)</title>
-        <pubTime>2016-01-12T16:00:00.000Z</pubTime>
+        <title>一种基于面相协议的MVVM设计思路</title>
+        <pubTime>2016-01-16T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
