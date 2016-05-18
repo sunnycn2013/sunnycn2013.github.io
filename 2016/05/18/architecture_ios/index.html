@@ -1,0 +1,713 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="浅谈iOS架构设计" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="iOS自身的开发特性是基于MVC的来构建的，随着业务场景变得愈发复杂，引入了MVVM。无论是MVVM还是MVP都是只是针对表现层代码的逻辑性质做了进一步的分割，使得代码的维护更加有章可循、有据可守。Presenter层（顾名思义，主持人 表演者的意思）在WPF的页面绑定中担任持有、变更数据。bind数据的角色，MVP也正是有此处诞生，整体来说类似于Controller层。相对ViewViewMod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈iOS架构设计">
+<meta property="og:url" content="http://sunnycn2013.github.io/2016/05/18/architecture_ios/index.html">
+<meta property="og:site_name" content="风之痕">
+<meta property="og:description" content="iOS自身的开发特性是基于MVC的来构建的，随着业务场景变得愈发复杂，引入了MVVM。无论是MVVM还是MVP都是只是针对表现层代码的逻辑性质做了进一步的分割，使得代码的维护更加有章可循、有据可守。Presenter层（顾名思义，主持人 表演者的意思）在WPF的页面绑定中担任持有、变更数据。bind数据的角色，MVP也正是有此处诞生，整体来说类似于Controller层。相对ViewViewMod">
+<meta property="og:image" content="http://7xtyxb.com1.z0.glb.clouddn.com/sanceng.png">
+<meta property="og:image" content="http://7xtyxb.com1.z0.glb.clouddn.com/product_detail.png">
+<meta property="og:image" content="http://7xtyxb.com1.z0.glb.clouddn.com/img.png">
+<meta property="og:updated_time" content="2016-05-18T14:01:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈iOS架构设计">
+<meta name="twitter:description" content="iOS自身的开发特性是基于MVC的来构建的，随着业务场景变得愈发复杂，引入了MVVM。无论是MVVM还是MVP都是只是针对表现层代码的逻辑性质做了进一步的分割，使得代码的维护更加有章可循、有据可守。Presenter层（顾名思义，主持人 表演者的意思）在WPF的页面绑定中担任持有、变更数据。bind数据的角色，MVP也正是有此处诞生，整体来说类似于Controller层。相对ViewViewMod">
+<meta name="twitter:image" content="http://7xtyxb.com1.z0.glb.clouddn.com/sanceng.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 浅谈iOS架构设计 | 风之痕 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">风之痕</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上善若水 人淡如菊...</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅谈iOS架构设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-18T00:00:00+08:00" content="2016-05-18">
+              2016-05-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/18/architecture_ios/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/18/architecture_ios/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="浅谈iOS架构设计"><a href="#浅谈iOS架构设计" class="headerlink" title="浅谈iOS架构设计"></a>浅谈iOS架构设计</h3><ul>
+<li>浅谈iOS架构设计<ul>
+<li>表示层开发</li>
+<li>客户端业务逻辑的剥离</li>
+<li>App组件SDK化(插件化之路)</li>
+<li>网络层DNS预解析</li>
+<li>图片资源服务器</li>
+</ul>
+</li>
+</ul>
+<p>之前市面上有大量的关于讨论iOS架构的一些问题，各式各样 百家争鸣。有关于设计模式的、业务划分的、app内部各种实现手段的。整体来说就我个人理解而言，架构的产生只是为了解决某种特定需求、特定场景下的特殊问题。架构无处不在，但是好的架构确不尽唯一。就像这个世界没有绝对的好与坏，每个人都有自己的特定需求。整体来说一个好的架构会决定着软件的后期的维护、开发是否具有可持续集成的可行性。作为一个设计师我们要做的学百家之所长，不断的完善自己，不意味的盲目的崇拜、推崇，做到手中无构，世间万物皆无构…</p>
+<p>&gt;<br>序言：随着iOS工程化的进度愈发加深，越来越多的团队面临的问题不在是如何为现有的软件追加一些新得功能模块，随着业务的拓展，对软件自身框架方面的问题也显得势在必行，模块与模块的之间的解耦合、模块间的相互独立，工程的组件化等显得越来越重要，本篇文章主要基于现有App工程中使用到的一些规范外加一些个人的理解总结，希望能够给予大家以学习上的帮助。</p>
+<h4 id="表示层开发模式"><a href="#表示层开发模式" class="headerlink" title="表示层开发模式"></a>表示层开发模式</h4><h5 id="表示层的开发"><a href="#表示层的开发" class="headerlink" title="表示层的开发"></a>表示层的开发</h5><p>客户端就表现层而言基本大家基本都采用MVC方式来开发，随着业务的演化可能逐步转变成MVVM，相对来说这些都是基于页面层的。无论是哪一种设计原则都是由MVC演变而来。相对当前的app来说，业务层面迭代速度较快，这一层次的开发经常面临着比较尴尬的场景，频繁的代码重构、解耦合…</p>
+<p>iOS自身的开发特性是基于MVC的来构建的，随着业务场景变得愈发复杂，引入了MVVM。无论是MVVM还是MVP都是只是针对表现层代码的逻辑性质做了进一步的分割，使得代码的维护更加有章可循、有据可守。Presenter层（顾名思义，主持人 表演者的意思）在WPF的页面绑定中担任持有、变更数据。bind数据的角色，MVP也正是有此处诞生，整体来说类似于Controller层。相对ViewViewModel层可能担任的角色更为广泛，除了需要处理一些数据的持有、获取、网络之外还需要担任一部分UI的特有的属性以及接口工作。更通俗一点来讲viewModel要处理的相关的一些操作范围更广、更容易成为一个无法从质上作出定义的一个实质存在。</p>
+<p>曾经有段时间社区里面流行一种叫做面向协议的编程规范，在大综业务场景模式下(如：大量同类型业务场景的商品、视图、cell、操作)如果真对每一种特例都去对应的枚举处理，其结果难以想象。这一点借鉴了Java 中接口式编程的法则，真对同一类型的事物抽象出公共的协议，在实际吃的操作过程中统一采用id<protocal>的形式去完成，这一点充分也体现了oop思想里面的多态性的思想。</protocal></p>
+<h5 id="客户端业务逻辑的剥离"><a href="#客户端业务逻辑的剥离" class="headerlink" title="客户端业务逻辑的剥离"></a>客户端业务逻辑的剥离</h5><p>曾经有人这样问我，你们iOS的客户端采用了什么样的架构。当时我想来想去没有一个比较合适的回答，结果反倒被对方反问：是三层架构吗？我已经不太记得当时的回答了，大概意思只是说了一些客户端与服务端一些本质区别内容的回答。事后我想了很久，也反思了很久。再到后来我渐渐的画出了自己的答案。</p>
+<p><img src="http://7xtyxb.com1.z0.glb.clouddn.com/sanceng.png" width="584" height="404"></p>
+<p>在传统的服务端最初为了实现基本业务的分离诞生了基本的三层模型</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">界面层 <span class="keyword">User</span> <span class="title">Interface</span> layer </span><br><span class="line">业务逻辑层 Business Logic Layer</span><br><span class="line">数据访问层 Data access layer</span><br></pre></td></tr></table></figure>
+<p>基于业务的划分，从而进一步达到高内聚、低耦合的目标，更有益于后期业务的维护与开发。基于以上这个模型慢慢衍生最终产生了</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 前端界面层 User Interface layer </span><br><span class="line">-<span class="ruby"> - - - - - - - - - - - - - - - - - - - - - - - - - </span><br><span class="line"></span> 服务层 Service  .....</span><br><span class="line">-<span class="ruby"> - - - - - - - - - - - - - - - - - - - - - - - - - </span><br><span class="line"></span> － 业务逻辑层 Business Logic Layer</span><br><span class="line"> － 数据访问层 Data access layer</span><br></pre></td></tr></table></figure>
+<p>基于心得架构完全实现了前后端的分离，中间采用service的形势进行对接，其实具体的业务场景可能真对服务层进行进一步的架构分离，最终可能是基本的三层，也可能是七层，可能会更多。</p>
+<p>相对来说，客户端具有根服务端不尽相同的场景，客户端本质来说就是一个前端，这一点根PC前端没有区别(PC前后段完全分离的模式目前普及到大家小巷)，客户端通过网络服务<br>获取数据，然后通过一些列操作最终将数据展示到手机屏幕上或者将操作结果发送到服务端。目前App从业务上架构的划分大题如上。</p>
+<p>真对一个电商app，大概将app分成基本业务层、基础服务层、核心服务层<br>基本业务层<br>真对用户来说打开一个电商为主的app首先看到的应该是各种促销的活动版块、社交模块、我的个人中心等，这一块属于运营活动的范畴。这一块完全是用户的视野窗口，<br>这一块的产品质量的好坏直接影响的用户的第一直觉效果。</p>
+<p>基础服务层<br>用户会选择对应的商品进入商详，最终选择商品加入购物车、提交订单、支付一些列操作，这一块主要作为电商app的基础模块，是电商app不可缺少的一部分。</p>
+<p>核心服务层<br>真对任何一个app来讲，总要有一部分公共核心组件，统计、监控、IM、crash收集、支付等SDK，除了基础SDK还有网络层、基础通用UI控件等，</p>
+<p>客户端基于业务的划分在实际的开发过程中有助于各个模块的开发人员可以完全专注于自己的业务模块，不同的业务场景模块真对软件的要求是不一样，运营相关的页面可能更多的面临着<br>迭代速度快、更新频繁，用户曝光量高，一个活动可能在经历两个比较大的模块后就会废弃，支付、购物车、商详的模块可能更新的频率比较低，但是数据处理量比较大，稳定性要求比<br>较高。</p>
+<h5 id="App组件化之路-插件化"><a href="#App组件化之路-插件化" class="headerlink" title="App组件化之路(插件化)"></a>App组件化之路(插件化)</h5><p>在大一点的Team中随着业务继续深入，组件化显得越来越重要。随着业务的迭代，问题会越来越明显。删除子模块是否是否影响到全局，再到更改某些模块的对外接口是否影响到全局的调用，再到将某些模块作为一个整体组件整体拷贝到其他的app工程中是否可以完美运行。这些工作越来越来显得愈发重要。如淘宝、天猫中的聚划算、秒杀插件等。</p>
+<p>在整体的业务布局中，作为某条业务线上的一个coder，每个人都只是一个螺钉的作用（自从进入到现在团队感觉自己能接触东西越来越专注一个方向，同样也是越来越单一，私底下不得不尝试着去做主动学习一些其它的）在大的业务场景下，有些需求可能不是座位一个开发的角度所能考虑到的。作为战略化的考虑我们也会面临着这样的场景，将某个模块完全拷贝到另一个工程中去跑（类似于聚划算这样的）。这一点对模块的独立性、隔离程度要求都是相对比较高的。</p>
+<p>客户端为什么会走向组件化，这样做有什么对应的目的。组件化最重的目的是为了最终实现模块的隔离,模块与模块实现完全解耦。在软件发展的环节中，随着时间的逐步推进，最终都会施行分治的手段去管理、维护。组件化的思想也是来源于此。服务端的程序会随着业务模块的迭代、用户访问量的叠加进而做对应的系统分隔、多元化部署等。相对客户端而言，我们可以针对不同的模块做分治处理，也就是组件化。在实际的开发过程中各团队之间只负责维护自己的模块，相互之间从程序以及业务上遵循高内聚、低耦合的原则，从而更加有效的提高项目开发与管理的效率进而节省人力物力财力。</p>
+<p>iOS组件化与安卓组件化的对比此处就不做对比了，安卓组件化能做的会比iOS更多。此处只谈iOS平台相关的组件化。</p>
+<h6 id="聊聊组件化"><a href="#聊聊组件化" class="headerlink" title="聊聊组件化"></a>聊聊组件化</h6><p>关于组件化的文章，之前有蘑菇街的组件化的文章，不少人对此也褒贬不一。整体来说组件化的工作愈发必然，但终归到底要不要统一的按照一种特定的模式去做却是不尽必然。整体来讲蘑菇街的大体上分几块入手：业务拆分剥离、统一跳转组件化、核心模块集成化、UI控件统一化。其中统一跳转蘑菇街采用了一种类似于OpenUrl:”mgj:/*”的形势，可能这样做为了迎合iOS中自身的一种唤醒规范，这一点备受诟病（没有必要非的做的根系统一模一样，费神又费力…）</p>
+<p>其实组件化也无外乎以上几种模型，可能只是大家针对具体的实施各有差异而已，下面简要的从几个比较典型的场景介绍一下现有工程中常用的一些手段。</p>
+<h6 id="业务分隔"><a href="#业务分隔" class="headerlink" title="业务分隔"></a>业务分隔</h6><p>在整个软件结构体系中业务划分这块也算是家常便饭，可能在中小型公司里面业务比较单一，开发人员相对单一。整个软件的开发就是在同一个目录下不断的迭代(具体就不多说了)。具体的划分原则就不多说了，上文也有提及到。聊下目前的现状，目前客户端的开发人员主要根据业务划分而划分。具体的组负责具体的业务模块，每个组涉及到的业务范围不同，业务属性不同，对开发人员的要求更是不同。完全分隔化，更加有利于每个人专注自己模块，也更加有利于模块的稳定性。相信大家针对Apple提交应用的一些诟病已经由来已久了(iOS的发版上线永远只有一次机会，没有像安卓那样的灰度发布，这也是iOS从业人员诱发心脏病的因素之一)。</p>
+<p>业务与开发人员分隔，最终还是要将所有的模块从新合并在一起打包上传应用商店。整个过程仍旧遵循原有的套路，业务分隔只是为了进一步提高管理效率。</p>
+<h6 id="统一跳转"><a href="#统一跳转" class="headerlink" title="统一跳转"></a>统一跳转</h6><p>真对电商客户端来讲，各式各样的跳转就不多说了。原生相互跳转、M中执行原生跳转、唤醒跳转。统一跳转组件算是一个不可忽视的一个模块。<br>统一化jump组件统控全局，作为全局工程的一个组件而存在。其它模块只需要调用统一化jump组件就可以实现页面跳转，无需关心具体的目标页面、无需关注更多的一些关于jump的代码。</p>
+<p>现有客户端中没有采用类似蘑菇街那种看似华丽实则繁琐的手段。首先每个页面还是采用对应的ActionName与对应的ActionDes来区分的。原生页面对应的每个模块都有对应的别名映射表，这个表是在服务端维护的，服务端下发不同的跳转事件，统一采用页面别名来划分。</p>
+<p>统一化组件采用协议做为传入标准，相关的模块如要执行跳转行为只需要调用统一化组件传入对应的遵循协议的对象即可，其它无序关注。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UARouterDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span>     * actionType;      <span class="comment">//事件类型</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span>     * actionPurpose;   <span class="comment">//目标页面</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span>     * actionSelector;  <span class="comment">//页面初始化函数</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSDictionary</span> * actionParams;    <span class="comment">//页面参数</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span>     * actionEventId;   <span class="comment">//事件ID</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span>     * actionOrderId;   <span class="comment">//订单参数</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span>     * actionShareInfo; <span class="comment">//分享</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UARouter</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">+ (instancetype)shareInstance;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">BOOL</span>)analysisProtocolAndJumpToPage:(<span class="keyword">id</span>&lt;UARouterDelegate&gt;)router;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>UARouter中作乐大量的封装性工作，只要针对actionPurpose做定向的处理性工作，也无妨也可以自行传入自己的初始化actionSelector和参数。另外相关的事件打点参数以及订单路径纪录参数也可以根据具体的场景实时的传入。</p>
+<h6 id="打点模块"><a href="#打点模块" class="headerlink" title="打点模块"></a>打点模块</h6><p>打点模块无外乎就是记录一些点击、pv等，现有工程中的打点气出也考虑过痛过自动打点来完成，这方面也曾经被许多人追问为何不采用自动打点。问题终归需要有一方来善终，最终的结论是当前的客户端业务打点场景太过于繁琐，数据逻辑太过于复杂不适合采用自动打点。</p>
+<p>聊到自动打点不得不说一些，自动打点主要就是采用hook（或者你理解叫AOP）的手段，将切片操作放在你想安置的位置（如果viewWillAppear：UIButton点击位等）具体手段就不多少了，可以参照针对<a href="http://sunnycn2013.github.io/2015/10/24/aop-ios/">AOP的理解</a>。</p>
+<p>目前的埋点主要由点击、性能、异常、PV、订单等业务场景，这一层组件的主要目的主要为外部提供一个统一化的打点入口，暂时可以理解针对打点SDK的进一步封装，如果中间打点SDK的逻辑或者接口发生了变化针对业务不会象湖影响，另外如果业务方需要传入参数的话也可以统一按照当前统一化组件的约定方式去传值。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_ENUM(NSInteger,UAPageLevel)&#123;</span><br><span class="line">    kPageLevel_1 = <span class="number">1</span>,</span><br><span class="line">    kPageLevel_2,</span><br><span class="line">    kPageLevel_3,</span><br><span class="line">    kPageLevel_4,</span><br><span class="line">    kPageLevel_5,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@interface</span> <span class="string">UATrack_Interface :</span> NSObject</span><br><span class="line"></span><br><span class="line">+ (instancetype)shareInstance;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  点击事件</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> eventID    事件Id</span><br><span class="line"> *  <span class="doctag">@param</span> parameters 点击事件参数</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="string">uatrack_event_click:</span>(NSString *)eventID <span class="string">parameters:</span>(NSDictionary *)parameters;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  pv事件</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> pageName   当天页面className</span><br><span class="line"> *  <span class="doctag">@param</span> parameters pv相关参数</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="string">uatrack_event_pv:</span>(NSString *)pageName <span class="string">parameters:</span>(NSDictionary *)parameters;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  异常事件统计</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> eventID    异常事件Id functionId</span><br><span class="line"> *  <span class="doctag">@param</span> parameters 异常信息参数</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="string">uatrack_event_exception:</span>(NSString *)eventID <span class="string">parameters:</span>(NSDictionary *)parameters;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  订单事件统计</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> orderID    事件Id</span><br><span class="line"> *  <span class="doctag">@param</span> pageLevel  事件级别</span><br><span class="line"> *  <span class="doctag">@param</span> parameters 事件参数</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="string">uatrack_event_order:</span>(NSString *)orderID <span class="string">pageLevel:</span>(UAPageLevel)pageLevel <span class="string">parameters:</span>(NSDictionary *)parameters;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  性能统计</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> eventID    事件Id</span><br><span class="line"> *  <span class="doctag">@param</span> start      开始时间</span><br><span class="line"> *  <span class="doctag">@param</span> end        结束时间</span><br><span class="line"> *  <span class="doctag">@param</span> parameters 性能参数</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="string">uatrack_event_performance:</span>(NSString *)eventID <span class="string">start_ts:</span>(NSString *)start <span class="string">end_ts:</span>(NSString *)end <span class="string">parameters:</span>(NSDictionary *)parameters;</span><br><span class="line"></span><br><span class="line"><span class="meta">@end</span></span><br></pre></td></tr></table></figure>
+<h6 id="商品详情"><a href="#商品详情" class="headerlink" title="商品详情"></a>商品详情</h6><p>在插件话的过程中，除了基本的一些基础功能模块以外可以做对应的插件话以外，我们在业务做出分隔的任何一个模块都是可以满足的。我们经常使用的App，例如淘宝、天猫、聚划算，狗厂的京东来点、咚咚、到家目前还是M插件等，可能针对用户来讲当打开淘宝客户端会看到首页快捷入口配置的天猫或者聚划算入口。从开发角度上来讲，这些应用都是由不同的团队来完成的，最终拷贝到相关联的功能内部，实现无缝衔接，这样某个相关的业务就可以实现完美接入了。</p>
+<p>从业务来讲在公司大范围框架场景很可能会出现类似的场景，大boss们从战略的角度考虑问题不是一个码农可以理解的。如果程序相互之间耦合度十分严重，工作量就大了。另外针对某个对应的模块，本身也是需要对外提供相关性的调用入口的，这些入口如果是遵循协议的形势相对就比较灵活。模块的内部的API一般情况不可能是从头到尾一成不变的，每一次代码的重构都涉及到API的新增和废弃，如果每次废弃API都需要通知所有调用方去改动，早晚会被领导干掉的。</p>
+<p>此处采用商品详情页面的业务逻辑做部分抽象处理，相对来说本文只只讲解一些思路和手段，具体的还需要根据具体的场景以及代码结构做部分调整。Demo中文件结构如下：</p>
+<p><img src="http://7xtyxb.com1.z0.glb.clouddn.com/product_detail.png" width="316" height="207"><img></p>
+<p><strong> ProductDetailManager 文件代码如下： </strong> </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@protocol</span> ProductDetailManagerProtocol &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  其他相关约定协议</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@end</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@interface</span> <span class="string">ProductDetailManager :</span> NSObject</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (instancetype)shareInstance;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  处理商详页面跳转</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> skuId sku</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="string">showProductDetailWithSkuNum:</span>(NSString *)skuId;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  处理跳转</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> product model</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="string">showProductDetailWithProductModel:</span>(ProductDetailModel *)product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  处理商品加购物车</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@param</span> product model</span><br><span class="line"> *</span><br><span class="line"> *  <span class="doctag">@return</span> bool</span><br><span class="line"> */</span></span><br><span class="line">+ (BOOL)<span class="string">addProductToCartWithProductModel:</span>(ProductDetailModel *)product;</span><br><span class="line"></span><br><span class="line"><span class="meta">@end</span></span><br></pre></td></tr></table></figure>
+<p>整个商品页面模块只暴露给外部ProductDetailManager.h使用，相关商品页面具体的函数入口全部封装在ProductDetailManager.m内部，如果商品页面内部API发生变化，不会影响工程中其它相关的业务代码，从而实现业务模块之间的相互独立。</p>
+<p><strong>备注：</strong></p>
+<p>在现实的开发模块中除了做插件化以外，在项目的持续集成过程中或多或少也会面临着其它的一些问题，在我们完成插件化的工作以后，这些相关的问题都可以得到很好的解决。大一点的团队中代码的安全显得愈发重要，之前的苏宁易购代码泄漏事件无非是给广大开发者上了很好的一课。</p>
+<p>像京东、淘宝这样的团队安全性这些都更佳不用过多的形容。客户端中还是存在着不少比较敏感的模块，诸如核心网络层、支付逻辑、安全登录、CPA、秒杀等。在插件化的基础上我们完全可以将这些对应的模块集成对应的静态库（SDK的形式），将相关的插件化调用入口的头文件public出来供外部阅读，并附上相关的文档。</p>
+<p>另外随着持续集成的迭代，一个更佳痛苦的问题git目录过大，编译起来耗时，采用模块SDK化的形式集成以后，每个业务组只需要在本组独有的分支上进行进行开发，这样就可以极大的节省了耗时的缺陷。另外sdk同意采用cocoapod私有仓库的形式来管理，最终大包上传的时间只需要提包人员统一 “pod update”然后再进行打包上传即可。</p>
+<h5 id="网络层DNS预解析"><a href="#网络层DNS预解析" class="headerlink" title="网络层DNS预解析"></a>网络层DNS预解析</h5><h6 id="DNS解析的原理"><a href="#DNS解析的原理" class="headerlink" title="DNS解析的原理"></a>DNS解析的原理</h6><p>随着客户端优化成都的进一步加深，从早期的基于优化网络请求的body、数据格式、gzip压缩等渐渐继续忘底层压缩。网络层的优化进一步针对DNS进行优化。</p>
+<p>一般情况下网络层的请求方式大题分集约型和离散型，具体那一种比较有优势此处就不多说了。由于IP本身具有不稳定性，如果机房做了迁移，我们不可能针对已经发出去的版本做domain切换的。所以一般在客户端中都采用使用域名的形式。使用域名就会面临着有DNS的劫持的风险。</p>
+<p>域名劫持不仅无法及时的进行监控，很大程度上极大的有损用户体验。我们都知道采用域名发起请求后，首先会找到距离最近的DNS服务器解析成对应的IP，然后根据IP直接找到对应的服务器。关于DNS为什么被劫持以及如果优化的思路可以参照文章<a href="http://mp.weixin.qq.com/s?__biz=MzA3ODgyNzcwMw==&amp;mid=201837080&amp;idx=1&amp;sn=b2a152b84df1c7dbd294ea66037cf262&amp;scene=2&amp;from=timeline&amp;isappinstalled=0&amp;utm_source=tuicool" target="_blank" rel="external">【鹅厂网事】全局精确流量调度新思路-HttpDNS服务详解</a>。</p>
+<h6 id="客户端中针对DNS预解析的实现原理及手段"><a href="#客户端中针对DNS预解析的实现原理及手段" class="headerlink" title="客户端中针对DNS预解析的实现原理及手段"></a>客户端中针对DNS预解析的实现原理及手段</h6><p>客户端实现预解析的手段大概分以下步骤，首先由于客户端自身的一些因素无法尝试去做一台自解析的工作，客户端只能使用现有的解析结果。</p>
+<p>具体思路如下： 客户端在每次启动时间可以动态的去请求DNS预解析的接口，尝试并获取一个IP映射表，之后的时间，如果获取成功网络在发起request时刻可以优先采用ip+服务名的形式去请求数据，如果不成功则仍旧采用域名的形式。将预解析的工作专门交给一台对应的预解析服务器去完成，客户端每次使用已经优化处理好的解析结果。这样就能最大限度的的省去网络请求过程中DNS解析的时间。</p>
+<h5 id="图片资源服务器"><a href="#图片资源服务器" class="headerlink" title="图片资源服务器"></a>图片资源服务器</h5><h6 id="关于图片静态资源的一些常用处理手段"><a href="#关于图片静态资源的一些常用处理手段" class="headerlink" title="关于图片静态资源的一些常用处理手段"></a>关于图片静态资源的一些常用处理手段</h6><p>在前端开发中，围绕图片相关的优化是比较常见的一个课题。糯米组件化框架在这个点上，主要实现了统一图片延时加载和资源代理，资源代理的流程大致如下：</p>
+<p><img src="http://7xtyxb.com1.z0.glb.clouddn.com/img.png" width="639" height="414"></p>
+<p>当业务组件发起图片请求时，组件化框架的资源代理会根据运行平台以及系统版本拦截请求进行优化处理，例如转发到图片代理服务，由图片代理服务进行webp转换等，这样也有注于域名收敛。</p>
+<p>通过资源代理的方式，组件化框架将图片优化任务收敛至一处，并且使得开发者可以更关注业务本身。</p>
+<p><a href="http://www.360doc.com/content/16/0316/13/25724933_542663459.shtml" target="_blank" rel="external">蘑菇街 App 的组件化之路</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;mid=2651112195&amp;idx=1&amp;sn=27fa638e90b09a107057e4a5e8d01ab1&amp;scene=23&amp;srcid=0509XYc90zRgbglPF6AVbmkh#rd" target="_blank" rel="external">糯米移动组件架构演进之路－    邱晨</a></p>
+<p><a href="http://www.infoq.com/cn/news/2016/03/lixianhui-interview" target="_blank" rel="external">滴滴iOS客户端的架构演变之路－李贤辉</a></p>
+<p><a href="http://www.infoq.com/cn/articles/ios-legacy-codebase-refactor?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">iOS遗留系统重构实践-李剑</a></p>
+<p><a href="http://www.tuicool.com/articles/7nAJBb" target="_blank" rel="external">App域名劫持之DNS高可用 - 开源版HttpDNS方案详解</a></p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzA3ODgyNzcwMw==&amp;mid=201837080&amp;idx=1&amp;sn=b2a152b84df1c7dbd294ea66037cf262&amp;scene=2&amp;from=timeline&amp;isappinstalled=0&amp;utm_source=tuicool" target="_blank" rel="external">【鹅厂网事】全局精确流量调度新思路-HttpDNS服务详解</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/电子商务/" rel="tag">#电子商务</a>
+          
+            <a href="/tags/iOS架构设计/" rel="tag">#iOS架构设计</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/17/protocol_mvvm/" rel="next" title="一种基于面相协议的MVVM设计思路">
+                <i class="fa fa-chevron-left"></i> 一种基于面相协议的MVVM设计思路
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="sunny" />
+          <p class="site-author-name" itemprop="name">sunny</p>
+          <p class="site-description motion-element" itemprop="description">hello大家好我是sunnny...</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/sunnycn" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sunnyvalue" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="ccguo" target="_blank" title="twitter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="389878212@qq.com" target="_blank" title="mail">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="ccguo" target="_blank" title="stackoverflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stackoverflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#浅谈iOS架构设计"><span class="nav-number">1.</span> <span class="nav-text">浅谈iOS架构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#表示层开发模式"><span class="nav-number">1.1.</span> <span class="nav-text">表示层开发模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#表示层的开发"><span class="nav-number">1.1.1.</span> <span class="nav-text">表示层的开发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端业务逻辑的剥离"><span class="nav-number">1.1.2.</span> <span class="nav-text">客户端业务逻辑的剥离</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#App组件化之路-插件化"><span class="nav-number">1.1.3.</span> <span class="nav-text">App组件化之路(插件化)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#聊聊组件化"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">聊聊组件化</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#业务分隔"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">业务分隔</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#统一跳转"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">统一跳转</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#打点模块"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">打点模块</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#商品详情"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">商品详情</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络层DNS预解析"><span class="nav-number">1.1.4.</span> <span class="nav-text">网络层DNS预解析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#DNS解析的原理"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">DNS解析的原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#客户端中针对DNS预解析的实现原理及手段"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">客户端中针对DNS预解析的实现原理及手段</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图片资源服务器"><span class="nav-number">1.1.5.</span> <span class="nav-text">图片资源服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#关于图片静态资源的一些常用处理手段"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">关于图片静态资源的一些常用处理手段</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunny</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sunnycn21';
+      var disqus_identifier = '2016/05/18/architecture_ios/';
+      var disqus_title = '浅谈iOS架构设计';
+      var disqus_url = 'http://sunnycn2013.github.io/2016/05/18/architecture_ios/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

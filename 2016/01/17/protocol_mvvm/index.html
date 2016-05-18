@@ -1,0 +1,701 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="一种基于面相协议的MVVM设计思路 " />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="其实关于iOS设计架构的文章最近已经很多了，我之前也曾经发表过一篇草稿基于面相协议MVP的软件设计。在这之前其实已经有不少的博主对于各种思路进行了大量的阐述，之所以写这遍文章的原因，是因为之前的一篇文章MVVM没你想象的那么的好,这遍文章从侧面描述了MVVM本质，但是不乏也缺少一些针对性的理解，在此我想真正的阐述一下自己的一些看法与见解，希望能与大家多多交流，一谈到MVVM可能好多人都认为又是一片">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一种基于面相协议的MVVM设计思路">
+<meta property="og:url" content="http://sunnycn2013.github.io/2016/01/17/protocol_mvvm/index.html">
+<meta property="og:site_name" content="风之痕">
+<meta property="og:description" content="其实关于iOS设计架构的文章最近已经很多了，我之前也曾经发表过一篇草稿基于面相协议MVP的软件设计。在这之前其实已经有不少的博主对于各种思路进行了大量的阐述，之所以写这遍文章的原因，是因为之前的一篇文章MVVM没你想象的那么的好,这遍文章从侧面描述了MVVM本质，但是不乏也缺少一些针对性的理解，在此我想真正的阐述一下自己的一些看法与见解，希望能与大家多多交流，一谈到MVVM可能好多人都认为又是一片">
+<meta property="og:image" content="http://7xkmox.com1.z0.glb.clouddn.com/mvvm.png">
+<meta property="og:updated_time" content="2016-05-09T14:24:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一种基于面相协议的MVVM设计思路">
+<meta name="twitter:description" content="其实关于iOS设计架构的文章最近已经很多了，我之前也曾经发表过一篇草稿基于面相协议MVP的软件设计。在这之前其实已经有不少的博主对于各种思路进行了大量的阐述，之所以写这遍文章的原因，是因为之前的一篇文章MVVM没你想象的那么的好,这遍文章从侧面描述了MVVM本质，但是不乏也缺少一些针对性的理解，在此我想真正的阐述一下自己的一些看法与见解，希望能与大家多多交流，一谈到MVVM可能好多人都认为又是一片">
+<meta name="twitter:image" content="http://7xkmox.com1.z0.glb.clouddn.com/mvvm.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 一种基于面相协议的MVVM设计思路 | 风之痕 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">风之痕</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上善若水 人淡如菊...</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一种基于面相协议的MVVM设计思路
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-17T00:00:00+08:00" content="2016-01-17">
+              2016-01-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/17/protocol_mvvm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/17/protocol_mvvm/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>作者: sunnycn</li>
+<li>原创: 一种基于面相协议的MVVM设计思路</li>
+<li>出处: 风之痕的博客(中文原创精品)</li>
+</ul>
+<h3 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h3><blockquote>
+<p>其实关于iOS设计架构的文章最近已经很多了，我之前也曾经发表过一篇草稿<a href="www.baidu.com">基于面相协议MVP的软件设计</a>。在这之前其实已经有不少的博主对于各种思路进行了大量的阐述，之所以写这遍文章的原因，是因为之前的一篇文章<a href="http://www.cocoachina.com/ios/20160112/14949.html" target="_blank" rel="external">MVVM没你想象的那么的好</a>,这遍文章从侧面描述了MVVM本质，但是不乏也缺少一些针对性的理解，在此我想真正的阐述一下自己的一些看法与见解，希望能与大家多多交流。</p>
+</blockquote>
+<h3 id="一、绪言"><a href="#一、绪言" class="headerlink" title="一、绪言"></a>一、绪言</h3><p>一谈到MVVM可能好多人都认为又是一片关于架构的文章，也有一些人基本上就不厌其烦了(脱胎与MVC，控制器剥离，轻量级控制器等)。在一大片的嘈杂声过后，不少人对于这个名词甚至都觉得危言耸听，至此有了文章说MVVM没你想象中的那么神往，更有甚至对其使用理解也是各有千秋。</p>
+<p>一个成熟的设计思维是在提出思想以后，然后在经历不断的使用、操作并最终得到验证后从新升华出的新的思维总结。任何一套理论思维都是如此，不经历生产的实际验证，无法证明其可靠性，人类工业革命每次大规模的进步都是如此。MVVM这个思维其实不算是一个新的构思了，大量资料显示它出自C#,最终被应用到iOS。说到此处，我个人觉得MVVM可能在其他平台中的使用已经渐进成熟，但是在iOS中大家对于MVVM的理解运用确实各有异同。</p>
+<p>谈到C#,其实我本人一直很钦佩这个平台的开创者。虽然说现有的service平台技术各有千秋，但是千遍一律，万变不离其宗。在服务端开发平台里，基础的三大平台的一些逻辑思维是值得每一个人去深思的。谈到处理业务逻辑服务端首档其冲。iOS之所以出现越来越多的设计思维方面的争议，究其原因无非是业务逻辑的处理越来越偏向于客户端、前端也需要担当一部分处理业务的责任，在这之前客户端是从不考虑逻辑处理的。我们在设计这一块区域的时间可以去借鉴一下服务端的一些基本的模式。无论是MVVM、MVP这些思维在上述平台中最早都曾出现过，学以致用，刨根揭底、物尽其用、极尽升华…</p>
+<h3 id="二、百家争鸣中MVVM"><a href="#二、百家争鸣中MVVM" class="headerlink" title="二、百家争鸣中MVVM"></a>二、百家争鸣中MVVM</h3><h4 id="2-1-ViewModel究其何物"><a href="#2-1-ViewModel究其何物" class="headerlink" title="2.1 ViewModel究其何物"></a>2.1 ViewModel究其何物</h4><p>MVVM新增了一个叫ViewModel的东东，其实最早看到iOS中使用MVVM，我自己也很模糊。ViewModel这个东西看起来很重，但是里面究竟要做什么、怎么做；它到底扮演了一个什么样的角色、到底该如何使用？这一点仍有争议。在不少文章以及使用中，可能最多看到的仍旧是在Bundle文件设计目录上一定要多出一个叫 *ViewModel的东西，然后将Controller中一部分逻辑直接玻璃出来放到这个class中，这样的文件结构决定了这是一种叫MVVM的设计架构。</p>
+<p>曾经有一段关于ViewModel的解释：ViewModel是一种介于Model和Controller之间的一个抽象模型，他能帮助控制器起到一个协调Model的作用，从而将一部分逻辑从控制器中剥离进而达到解耦合目的。</p>
+<p>可能就是这句解释最终产生了臆想不到的结果，从此以后ViewModel担起了处理数据显示、网络请求获取数据、表单验证更甚之可以放到这里面的任务全部放进来。ViewModel成了万金油，最终MVVM比起MVC只不过是多了一个class文件，然后拖进去一部分代码而已。</p>
+<h4 id="2-2-ViewModel承担了更多的责任"><a href="#2-2-ViewModel承担了更多的责任" class="headerlink" title="2.2 ViewModel承担了更多的责任"></a>2.2 ViewModel承担了更多的责任</h4><p>ViewModel用于存放用户输入的逻辑、视图的表示逻辑、网络请求、以及其他不确定的各种代码逻辑。就是这样的一系列胶浊物，让人不禁对这种新的设计方式产生疑问。这样的结构能否满足并需求并达到彻底解耦合的目的，不同的逻辑分支的胶浊物从新被分配到一个新的类文件中是否真的解决了问题。太过于模糊的ViewModel是否真的可好；如果业务场景在增加一倍ViewModel中的逻辑是否仍旧清晰、是否会混淆等等。</p>
+<p>ViewModel现有的这种理解并没有真的改变之前的一些问题，单独的从文件结构上来划分原有的逻辑，不禁让人产生深思。<a href="http://www.cocoachina.com/ios／20160112/14949.html" target="_blank" rel="external">MVVM没你想象的那么的好</a>中这遍文章的确也谈到了这一点。ViewModel最终的臃肿无法最终解决问题，这一点与Controller臃肿无非是五十步笑百步的问题。</p>
+<h3 id="三、个人理解的MVVM解耦"><a href="#三、个人理解的MVVM解耦" class="headerlink" title="三、个人理解的MVVM解耦"></a>三、个人理解的MVVM解耦</h3><h4 id="3-1-传统业务模型的解决之道"><a href="#3-1-传统业务模型的解决之道" class="headerlink" title="3.1 传统业务模型的解决之道"></a>3.1 传统业务模型的解决之道</h4><p>谈到此处，我们暂时先抛开iOS 、抛开前端。让我们从新回到原始的软件设计模型中去…</p>
+<p>最初的最初，我们开始使用文件来存储数据，之后慢慢有了数据库，到后来关系型数据库。我们开始存储时代的来临。大量的数据开始存储在数据库中。随着业务的持续增长，我们渐渐的逐步开始将一部分逻辑最终以抽象关系模型数据的方式存储在DB，从此以后渐渐诞生了业务模型这个概念。</p>
+<p>随着业务模型的深入，我们不得不开始处理大量的逻辑，同时软件开发的最终的目的都是为了一个所谓的呈递、操作、处理业务的目的。我们将可操作、可使用的一个可执行程序呈递给用户，于是有了软件的使用、商业化软件市场的诞生。</p>
+<p>随着业务模型的进一步拓展，业务愈加复杂，我们发现在开发、使用过程中难免遇见一些业务层次的变更，可能是存储层变更，会影响到我们的软件，逻辑层的变更、用户交互层的改变等都会影响到我们的软件的维护、升级。</p>
+<p>于是我们在开发的模型中渐渐考虑到了软件的设计思维的剥离、抽取。这一点主要从两个方面来完成入手，一是从业务逻辑模型这条渠道进行分离(最终暂时理解为基本三层架构)；二是从软件操作界面上进行逻辑抽取玻璃(最终诞生了基本的MVC模型)，这些设计思维的前身都是从传统的模型中一步步走过来的。</p>
+<p>随着时间的与日增场，为了满足业务对接式的需求。满满诞生了webservice、service这些服务型的应用来满足互联网网络传输过程的各种数据对接。</p>
+<p>以上大概就是传统软件进阶之路…</p>
+<h4 id="3-2-MVVM究竟该如何安置"><a href="#3-2-MVVM究竟该如何安置" class="headerlink" title="3.2 MVVM究竟该如何安置"></a>3.2 MVVM究竟该如何安置</h4><p>MVVM无非是因为原有的MVC无法满足现有的开发以及维护产生的一个临时做法，我们只是想到抽离了这个东西，但是没有具体的定义该如何去使用。为此大量的文章并没有具体的谈到这一点。这一点还要归咎于app这个概念。如果我们暂且仍旧理解app只是一个展示性的界面，压根从不处理各种业务逻辑就不会有上述问题了。关键是事实并非如此，我们面临的关于处理业务逻辑的问题只能说是越来越多。</p>
+<p>业务逻辑大量的在客户度中开始追加，我们暂且考虑ViewModel是一个业务处理模块，viewModel只处理业务数据逻辑，视图显示一概不要。ViewModel处理的数据究竟从哪里来；我们需要一个对应的数据获取层。ViewModel只有通过某种工具拿到数据才能对数据进行加工、逻辑处理，反过来如果说客户端要写入什么类型的数据，ViewMode作为数据逻辑处理工具需要提供对应的工具入口，数据有进有出，这才符合业务逻辑处理层次的概念。</p>
+<p>ViewModel只负责数据处理，数据交付谁来处理。我们想到了数据传输层(DAL),ViewModel不会管理Http Request对象，它需要一个专门的工具来完成这个工作。我们开创了数据传输层，这一点根server端有区别。传统的DAL层负责支持从数据库端的增删改查操作，我们客户端的数据传输层（下文API层）则需要负责与网络service的访问对接，因为网络service才是客户度真正的数据存储源。</p>
+<p>传统业务逻辑处理：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">三层</span><br><span class="line">    -<span class="ruby"> Model    －－</span><br><span class="line"></span>    -<span class="ruby"> DAL         ｜</span><br><span class="line"></span>    -<span class="ruby"> BLL         ｜</span><br><span class="line"></span>    -<span class="ruby">             ｜</span><br><span class="line"></span>MVC :             ｜</span><br><span class="line">    -<span class="ruby"> Model    - -</span><br><span class="line"></span>    -<span class="ruby"> View</span><br><span class="line"></span>    -<span class="ruby"> Controller</span></span><br></pre></td></tr></table></figure>
+<p>谈到数据Model，此处我们仍旧坚持不会抛弃传统模式下的Model设计，只不过Model层我们做了一点点改动，对应的每个属性Model我们在此追加了协议层这一概念，暂时可以认为楼层中的每一个对象都是一个Model，我们针对这些数据设计了一个协议，Model具体由哪个对应的View显示绘制，由Model自身实现的协议决定。这一点大家可以参照我之前发表的文章<a href="http://www.cocoachina.com/ios/20151223/14768.html" target="_blank" rel="external">基于面向协议MVP模式下的软件设计－iOS篇
+</a><br>这样做的好处就是在控制器胶水层面，我们针对处理tableview各种代理的的时候，我们统一认为所有的数据模型都是id<xxxprotocol>类型统一去做粘合处理。此处的设计规范采用抽取公共属性，然后抽象到协议，再由具体的对象实现对应的协议去完成。成功的避开了继承，这一点与最近几天swift开发大会中喵神王巍提到的观念相吻合。</xxxprotocol></p>
+<h4 id="3-3-页面层如何安置"><a href="#3-3-页面层如何安置" class="headerlink" title="3.3 页面层如何安置"></a>3.3 页面层如何安置</h4><p>解决了ViewModel的问题，我们来看页面展示层的概念，这一点我们要严格遵守MVC的通知界面、更新数据的策略。View永远不要直接通知Model，Model数据发生变化绝对禁止直接通知View进行显示。</p>
+<p>谈到这一点可能ReactiveCocoa做的很好，但是其实一直以来好归好，我们本人不太喜欢整个工程完全抛弃Apple原有的代码编程规范，去采用一种新的编程模式。这一点我个人更青睐于Apple自身。</p>
+<p>ReactiveCocoa在处理View－&gt;Model，Model－&gt;View已经封装慌的很好了；你可以直接在控制器内将需要通过信号型变量关联的Model和View链接起来，控制器仍旧起到链接Model和View的胶水作用，但是Model和View并没有直接交互，通过发送信号间接的进行交互。</p>
+<p>在MVVM中，如有类似需求，我本人更倾向于KVO来完成,具体参照(<a href="https://medium.com/@ramshandilya/lets-discuss-mvvm-for-ios-a7960c2f04c7#.qkjcbjnpr" target="_blank" rel="external">Let’s discuss MVVM for iOS</a>)。在页面级别，仍旧采用控制器持有ViewModel的惯例，这一点根大家一观的做法相同。控制器的交互数据获取都从ViewModel来获取，我们暂时理解ViewModel就是一代工厂，既不拥有数据、也不具体使用数据，只负责加工处理数据。我们在控制器层可以针对数据来源的某些属性采用KVO增加观察者的形式做数据监听，当数据来源的这些属性发生变化时间，控制器能及时的收到通知并更新UI。这个过程中数据变化直接通知控制器然后由控制器直接通知View更新界面，完全符合MVC观念。</p>
+<p>当UI界面上通过某个点击事件发生回传，我们仍旧采用事件回调首先传递回到控制器，然后由控制器拿到响应的数据源交付ViewModel去处理加工数据，最终拿到处理结果。此时KVO生效，控制器中直接感应到通知的回调去更新对应的UI界面。整个工作流程完全负责MVC的原始观念。</p>
+<p>整个设计思路如下：<br><img src="http://7xkmox.com1.z0.glb.clouddn.com/mvvm.png" alt="MVVM"></p>
+<h4 id="3-4-购物车设计规范"><a href="#3-4-购物车设计规范" class="headerlink" title="3.4 购物车设计规范"></a>3.4 购物车设计规范</h4><p>一种基于面相协议的MVVM<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> API                       与serve端API对接工具	(相当于客户端的数据访问层)</span><br><span class="line"></span>	-<span class="ruby"> BaseAPI               提供基础的服务</span><br><span class="line"></span>	-<span class="ruby"> CartAPI               基于购物车的API集合，提供相关的API服务</span><br><span class="line"></span>-<span class="ruby"> Protocol                  基础协议层</span><br><span class="line"></span>	-<span class="ruby"> CartProbeProtocol    探针器 主要为所有的cell提供计算cell高度、呈递数据、传入事件处理</span><br><span class="line"></span>	-<span class="ruby"> CartRenderProtocol   渲染协议 主要为Model提供渲染目标视图</span><br><span class="line"></span>	-<span class="ruby"> CartFloorProtocol    通用Model楼层协议，为大楼层的提供公共属性</span><br><span class="line"></span>-<span class="ruby"> Model                    实体层 Entity  (数据实体层)</span><br><span class="line"></span>	-<span class="ruby"> CartModel            购物车基础实体集合</span><br><span class="line"></span>	-<span class="ruby"> CartSkuModel         商品Model</span><br><span class="line"></span>	-<span class="ruby"> CartHeaderModel      分类title Model</span><br><span class="line"></span>-<span class="ruby"> View                     基础UI层 主要提供基础的视图 (基础View层)</span><br><span class="line"></span>	-<span class="ruby"> view	               自定义View</span><br><span class="line"></span>-<span class="ruby"> Cell                     Cell (cell集合)</span><br><span class="line"></span>	-<span class="ruby"> CartTableViewCell    公共集合</span><br><span class="line"></span>	-<span class="ruby"> CartHeaderTableCell  头视图cell</span><br><span class="line"></span>-<span class="ruby"> ViewModel                ViewModel 主要完成针对控制器的拆分 (相当于业务；逻辑层)</span><br><span class="line"></span>	-<span class="ruby"> CartViewModel        内部封装了购物车相关的各种业务逻辑（数据拉取、数据更新、数据删除）</span><br><span class="line"></span>-<span class="ruby"> Controller 		       控制器胶水层  (控制器层)</span></span><br></pre></td></tr></table></figure></p>
+<h6 id="API层"><a href="#API层" class="headerlink" title="API层"></a>API层</h6><p>客户端API层职能类似于传统的数据访问层，这里封装了基本的网络请求对象、service地址以及，回调处理等，等操作。API层主要用于ViewModel层的调用，关于客户端请求交互的模块全部都是由API层来完成，此处完主要成了业务模块针对网络请求层次的剥离抽取。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">RequestModel</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BaseAPI</span> : <span class="title">NSObject</span></span></span><br><span class="line">&#123;</span><br><span class="line">    AFHTTPSessionManager *_manager;</span><br><span class="line">    RequestModel         *_requestModel;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>,<span class="keyword">readonly</span>) RequestModel *requestModel;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)serverURL;</span><br><span class="line">- (<span class="built_in">NSString</span> *)functionID;</span><br><span class="line">- (<span class="built_in">NSDictionary</span> *)params;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)startWithCompletionBlockWithSuccess:(<span class="keyword">void</span> (^)(<span class="built_in">NSDictionary</span> *content))success</span><br><span class="line">                                    failure:(<span class="keyword">void</span> (^)(<span class="built_in">NSError</span> *error))failure;</span><br><span class="line">- (<span class="keyword">void</span>)stop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RequestModel</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span> *serverURL;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span> *functionID;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSDictionary</span> *params;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h5 id="基础协议层"><a href="#基础协议层" class="headerlink" title="基础协议层"></a>基础协议层</h5><p>这个地方主要提供了三个对应的协议，之所以使用抽象协议，此处省略了继承。</p>
+<p>CartProbeProtocol   主要交付TableViewCell来实现<br>CartRenderProtocol  主要交付具体要绘制的Model来实现<br>CartFloorProtocol   主要交付大楼层符合Model来实现</p>
+<p>此处使用协议的形式，主要是为了能够完成对象的协作性调用，在粘合剂控制器中，我们可以统一采用<br>id<cart***protocol>的形式来操作具体的对象，而无需再关心具体的Model类型以及cell类型。</cart***protocol></p>
+<h5 id="Model-、Cell-、View层"><a href="#Model-、Cell-、View层" class="headerlink" title="Model 、Cell 、View层"></a>Model 、Cell 、View层</h5><p>这些层次与MVC类似</p>
+<h5 id="ViewModel层"><a href="#ViewModel层" class="headerlink" title="ViewModel层"></a>ViewModel层</h5><p>ViewModel层是一个基于业务逻辑层面的剥离，主要提供一些增删改查的操作</p>
+<h5 id="Controller器层次"><a href="#Controller器层次" class="headerlink" title="Controller器层次"></a>Controller器层次</h5><p>控制器主要起到胶水作用，控制器会组织View的与数据的融合。控制器中主要采用两种手段：<br>一种是基本的楼层我们采用id<cart***protocol>的形式来统一操作，这一点遵循了运行时语言的特性（运行时才决定具体的对象的类型）。<br>另一种是针对特定属性的功能，通过分类的形式来完成，尽最大限度的剥离控制器的逻辑。<br>备注：（如关于导航上相关的所有逻辑，我们统一将这块的UI、操作、衔接、回调统一放在一个当前控制器的一个分类文件去完成，这样从文件分割上进一步分割原有控制器）。</cart***protocol></p>
+<p>&lt;<strong>创建分类的时间，最大限度的不要为系统级别的class创建分类，要尽量针对自己的某个自定义class创建分类，这一点尽量避免为系统级class创建分类引入多于的链接类型开销(有兴趣的可以研究下runtime相关东西，category的实现最后也是要讲分类方法加入method_list队列去的，如果分类给NSObject创建了分类，在世纪使用场景下，系统会给每个类都田间对应的方法，产生多于的函数链接、存储开销) </strong>&gt;<br>如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#pragma mark - UITableViewDelegate,UITableViewDataSource</span></span><br><span class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span>.cartViewModel.list count];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">id</span>&lt;CartFloorProtocol&gt; floor = <span class="keyword">self</span>.cartViewModel.list[section];</span><br><span class="line">    <span class="keyword">return</span> [floor numberOfModelInFloor];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UITableViewCell</span> *cell = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">id</span>&lt;CartFloorProtocol&gt; floor = <span class="keyword">self</span>.cartViewModel.list[indexPath.section];</span><br><span class="line">    cell = [tableView dequeueReusableCellProcessModel:floor indexPath:indexPath];</span><br><span class="line">    [(<span class="keyword">id</span>&lt;CartProbeProtocol&gt;)cell setDelegate:<span class="keyword">self</span>];</span><br><span class="line">    <span class="keyword">return</span> cell;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="built_in">UIView</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView viewForHeaderInSection:(<span class="built_in">NSInteger</span>)section</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, SCREEN_WIDTH, <span class="number">25</span>)];</span><br><span class="line">    view.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</span><br><span class="line">    <span class="keyword">return</span> view;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">id</span>&lt;CartFloorProtocol&gt; floor = <span class="keyword">self</span>.cartViewModel.list[indexPath.section];</span><br><span class="line">    <span class="keyword">id</span>&lt;CartRenderProtocol&gt; renderModel = [floor cartModelForRowIndexPath:indexPath];</span><br><span class="line">    Class&lt;CartProbeProtocol&gt; cellClass = <span class="built_in">NSClassFromString</span>([renderModel cellIdentifier]);</span><br><span class="line">    <span class="keyword">return</span> [cellClass calculateSizeWithData:renderModel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="四、软件设计开发之展望"><a href="#四、软件设计开发之展望" class="headerlink" title="四、软件设计开发之展望"></a>四、软件设计开发之展望</h3><p>软件设计的思路千变万化，终归到底没有具体绝对的好与坏之分，真正的选择还需要根据的具体的业务场景来决定，MVVM脱胎于MVC，如果是展示型的复杂业务类型来讲我个人更偏重于MVP的模式来实现(具体参照<a href="http://www.cocoachina.com/ios/20151223/14768.html" target="_blank" rel="external">基于面向协议MVP模式下的软件设计－iOS篇
+</a>，这一点针对模块化进行分割处理，严格的讲不通的逻辑快分割，提高了程序的健壮性)；<br>如果是针对具有复杂操作性的业务类型的场景，我个人偏重于MVVM，处理复杂交互逻辑。采用传统业务逻辑抽离的规则来处理客户端的逻辑，这一点绰绰有余。</p>
+<p>任何一种软件构思都是在具体的实践中一步步的出的。纵观整个软件的发展，无一不是如此。无论是中文还是外文其实大家都有自己的见解，关于MVVM的文章其实的确有不少外文的，之前我也认真研读过一些。任何一种事务我们最终都是需要有自己独特一面见解的，只有不断的总结学习别人观点，不断的进行融汇升华，最终走出一条自己的路。这一点始终如此，也只有这样在某一点上我们才可能做到超越以往….</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/电子商务/" rel="tag">#电子商务</a>
+          
+            <a href="/tags/MVVM/" rel="tag">#MVVM</a>
+          
+            <a href="/tags/MVV/" rel="tag">#MVV</a>
+          
+            <a href="/tags/MVP/" rel="tag">#MVP</a>
+          
+            <a href="/tags/iOS开发框架/" rel="tag">#iOS开发框架</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/13/ios-mvvm-2/" rel="next" title="漫谈iOS开发框架之MVVM(二)">
+                <i class="fa fa-chevron-left"></i> 漫谈iOS开发框架之MVVM(二)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/18/architecture_ios/" rel="prev" title="浅谈iOS架构设计">
+                浅谈iOS架构设计 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="sunny" />
+          <p class="site-author-name" itemprop="name">sunny</p>
+          <p class="site-description motion-element" itemprop="description">hello大家好我是sunnny...</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/sunnycn" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sunnyvalue" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="ccguo" target="_blank" title="twitter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="389878212@qq.com" target="_blank" title="mail">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="ccguo" target="_blank" title="stackoverflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stackoverflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、绪言"><span class="nav-number">2.</span> <span class="nav-text">一、绪言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、百家争鸣中MVVM"><span class="nav-number">3.</span> <span class="nav-text">二、百家争鸣中MVVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-ViewModel究其何物"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 ViewModel究其何物</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-ViewModel承担了更多的责任"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 ViewModel承担了更多的责任</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、个人理解的MVVM解耦"><span class="nav-number">4.</span> <span class="nav-text">三、个人理解的MVVM解耦</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-传统业务模型的解决之道"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 传统业务模型的解决之道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-MVVM究竟该如何安置"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 MVVM究竟该如何安置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-页面层如何安置"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 页面层如何安置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-购物车设计规范"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 购物车设计规范</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#API层"><span class="nav-number">4.4.0.1.</span> <span class="nav-text">API层</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基础协议层"><span class="nav-number">4.4.1.</span> <span class="nav-text">基础协议层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Model-、Cell-、View层"><span class="nav-number">4.4.2.</span> <span class="nav-text">Model 、Cell 、View层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ViewModel层"><span class="nav-number">4.4.3.</span> <span class="nav-text">ViewModel层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Controller器层次"><span class="nav-number">4.4.4.</span> <span class="nav-text">Controller器层次</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、软件设计开发之展望"><span class="nav-number">5.</span> <span class="nav-text">四、软件设计开发之展望</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunny</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sunnycn21';
+      var disqus_identifier = '2016/01/17/protocol_mvvm/';
+      var disqus_title = '一种基于面相协议的MVVM设计思路';
+      var disqus_url = 'http://sunnycn2013.github.io/2016/01/17/protocol_mvvm/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
