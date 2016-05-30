@@ -26,20 +26,18 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
+    <loc>http://yoursite.com/2015/10/24/aop-ios/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>大家好，我是sunny，博客迁移至Github ，多多关照</title>
-        <pubTime>2016-01-02T11:37:30.000Z</pubTime>
+        <title>漫谈iOS AOP编程之路 </title>
+        <pubTime>2015-10-23T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
-        <tag>风之痕的博客教程</tag>
-         
-        <tag>sunnycn的博客</tag>
-         
         <tag>电子商务</tag>
+         
+        <tag>AOP</tag>
          
          
            
@@ -72,12 +70,35 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/01/12/ios-mvvm-1/</loc>
+    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>漫谈iOS开发框架之MVVM(一)</title>
-        <pubTime>2016-01-11T16:00:00.000Z</pubTime>
+        <title>大家好，我是sunny，博客迁移至Github ，多多关照</title>
+        <pubTime>2016-01-02T11:37:30.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>风之痕的博客教程</tag>
+         
+        <tag>sunnycn的博客</tag>
+         
+        <tag>电子商务</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/01/13/ios-mvvm-2/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>漫谈iOS开发框架之MVVM(二)</title>
+        <pubTime>2016-01-12T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
@@ -124,60 +145,12 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/01/13/ios-mvvm-2/</loc>
+    <loc>http://yoursite.com/2016/01/12/ios-mvvm-1/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>漫谈iOS开发框架之MVVM(二)</title>
-        <pubTime>2016-01-12T16:00:00.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>电子商务</tag>
-         
-        <tag>MVVM</tag>
-         
-        <tag>MVV</tag>
-         
-        <tag>MVP</tag>
-         
-        <tag>iOS开发框架</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2015/10/24/aop-ios/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>漫谈iOS AOP编程之路 </title>
-        <pubTime>2015-10-23T16:00:00.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>电子商务</tag>
-         
-        <tag>AOP</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2016/01/17/protocol_mvvm/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>一种基于面相协议的MVVM设计思路</title>
-        <pubTime>2016-01-16T16:00:00.000Z</pubTime>
+        <title>漫谈iOS开发框架之MVVM(一)</title>
+        <pubTime>2016-01-11T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
@@ -211,6 +184,25 @@
         <tag>js</tag>
          
         <tag>做一个不可替代的架构师</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>基于面向协议MVP模式下的软件设计－iOS篇 </title>
+        <pubTime>2015-12-21T16:00:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>电子商务</tag>
          
          
            
@@ -262,16 +254,24 @@
 
     
   <url>
-    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
+    <loc>http://yoursite.com/2016/01/17/protocol_mvvm/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>基于面向协议MVP模式下的软件设计－iOS篇 </title>
-        <pubTime>2015-12-21T16:00:00.000Z</pubTime>
+        <title>一种基于面相协议的MVVM设计思路</title>
+        <pubTime>2016-01-16T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
         <tag>电子商务</tag>
+         
+        <tag>MVVM</tag>
+         
+        <tag>MVV</tag>
+         
+        <tag>MVP</tag>
+         
+        <tag>iOS开发框架</tag>
          
          
            
