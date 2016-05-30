@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2016/05/18/architecture_ios/</loc>
-    
-    <lastmod>2016-05-18T14:01:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/notes/index.html</loc>
     
     <lastmod>2016-05-18T14:01:22.000Z</lastmod>
@@ -16,14 +9,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
+    <loc>http://yoursite.com/2016/05/18/architecture_ios/</loc>
     
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <lastmod>2016-05-18T14:01:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/10/01/cell_height_calulate/</loc>
+    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     
@@ -37,14 +30,21 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/01/13/ios-mvvm-2/</loc>
+    <loc>http://yoursite.com/2016/01/12/ios-mvvm-1/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/01/12/ios-mvvm-1/</loc>
+    <loc>http://yoursite.com/2015/10/01/cell_height_calulate/</loc>
+    
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/01/13/ios-mvvm-2/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     
@@ -72,13 +72,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/11/29/xcode7-xctest/</loc>
-    
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2015/11/09/react-native-cut/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
@@ -86,7 +79,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
+    <loc>http://yoursite.com/2015/11/29/xcode7-xctest/</loc>
+    
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     
