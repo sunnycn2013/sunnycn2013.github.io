@@ -26,50 +26,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2015/10/24/aop-ios/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>漫谈iOS AOP编程之路 </title>
-        <pubTime>2015-10-23T16:00:00.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>电子商务</tag>
-         
-        <tag>AOP</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2016/01/10/hexo-course/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hexo教程GitCafe部署搭建博客</title>
-        <pubTime>2016-01-09T16:00:00.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>电子商务</tag>
-         
-        <tag>Hexo教程</tag>
-         
-        <tag>GitCafe下搭建博客</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2016/01/02/abouts/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
@@ -79,12 +35,12 @@
         
         <tag>iOS</tag>
          
+        <tag>电子商务</tag>
+         
         <tag>风之痕的博客教程</tag>
          
         <tag>sunnycn的博客</tag>
          
-        <tag>电子商务</tag>
-         
          
            
         </display>
@@ -93,49 +49,18 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/01/13/ios-mvvm-2/</loc>
+    <loc>http://yoursite.com/2015/10/24/aop-ios/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>漫谈iOS开发框架之MVVM(二)</title>
-        <pubTime>2016-01-12T16:00:00.000Z</pubTime>
+        <title>漫谈iOS AOP编程之路 </title>
+        <pubTime>2015-10-23T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
-        <tag>电子商务</tag>
-         
-        <tag>MVVM</tag>
-         
-        <tag>MVV</tag>
-         
-        <tag>MVP</tag>
-         
-        <tag>iOS开发框架</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2015/10/01/cell_height_calulate/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>UITableViewCell 高度计算从混沌初始到天地交泰 </title>
-        <pubTime>2015-09-30T16:00:00.000Z</pubTime>
-        
-        <tag>iOS</tag>
+        <tag>AOP</tag>
          
         <tag>电子商务</tag>
-         
-        <tag>TableViewCell</tag>
-         
-        <tag>AutoLayout</tag>
-         
-        <tag>FDTemplateLayoutCell</tag>
          
          
            
@@ -172,18 +97,24 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/01/11/qianduan/</loc>
+    <loc>http://yoursite.com/2016/01/13/ios-mvvm-2/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>做一个不可替代的架构师</title>
-        <pubTime>2016-01-10T16:00:00.000Z</pubTime>
+        <title>漫谈iOS开发框架之MVVM(二)</title>
+        <pubTime>2016-01-12T16:00:00.000Z</pubTime>
         
-        <tag>前端</tag>
+        <tag>iOS</tag>
          
-        <tag>js</tag>
+        <tag>电子商务</tag>
          
-        <tag>做一个不可替代的架构师</tag>
+        <tag>MVVM</tag>
+         
+        <tag>MVV</tag>
+         
+        <tag>MVP</tag>
+         
+        <tag>iOS开发框架</tag>
          
          
            
@@ -203,6 +134,79 @@
         <tag>iOS</tag>
          
         <tag>电子商务</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2015/10/01/cell_height_calulate/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>UITableViewCell 高度计算从混沌初始到天地交泰 </title>
+        <pubTime>2015-09-30T16:00:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>电子商务</tag>
+         
+        <tag>TableViewCell</tag>
+         
+        <tag>AutoLayout</tag>
+         
+        <tag>FDTemplateLayoutCell</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/01/17/protocol_mvvm/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>一种基于面相协议的MVVM设计思路</title>
+        <pubTime>2016-01-16T16:00:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>电子商务</tag>
+         
+        <tag>MVVM</tag>
+         
+        <tag>MVV</tag>
+         
+        <tag>MVP</tag>
+         
+        <tag>iOS开发框架</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/01/11/qianduan/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>做一个不可替代的架构师</title>
+        <pubTime>2016-01-10T16:00:00.000Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>js</tag>
+         
+        <tag>做一个不可替代的架构师</tag>
          
          
            
@@ -254,24 +258,20 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/01/17/protocol_mvvm/</loc>
+    <loc>http://yoursite.com/2016/01/10/hexo-course/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>一种基于面相协议的MVVM设计思路</title>
-        <pubTime>2016-01-16T16:00:00.000Z</pubTime>
+        <title>Hexo教程GitCafe部署搭建博客</title>
+        <pubTime>2016-01-09T16:00:00.000Z</pubTime>
         
         <tag>iOS</tag>
          
         <tag>电子商务</tag>
          
-        <tag>MVVM</tag>
+        <tag>Hexo教程</tag>
          
-        <tag>MVV</tag>
-         
-        <tag>MVP</tag>
-         
-        <tag>iOS开发框架</tag>
+        <tag>GitCafe下搭建博客</tag>
          
          
            
