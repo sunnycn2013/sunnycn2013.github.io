@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/notes/index.html</loc>
-    
-    <lastmod>2016-05-18T14:01:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2016/05/18/architecture_ios/</loc>
     
     <lastmod>2016-05-18T14:01:22.000Z</lastmod>
@@ -16,7 +9,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
+    <loc>http://yoursite.com/notes/index.html</loc>
+    
+    <lastmod>2016-05-18T14:01:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/01/11/qianduan/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     
@@ -44,13 +44,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
-    
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2015/10/01/cell_height_calulate/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
@@ -58,14 +51,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/01/17/protocol_mvvm/</loc>
+    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/01/11/qianduan/</loc>
+    <loc>http://yoursite.com/2016/01/17/protocol_mvvm/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     
@@ -80,6 +73,13 @@
   
   <url>
     <loc>http://yoursite.com/2015/11/29/xcode7-xctest/</loc>
+    
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
     
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     

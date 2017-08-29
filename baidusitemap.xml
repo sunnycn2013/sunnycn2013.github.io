@@ -3,7 +3,6 @@
 
 
     
-    
   <url>
     <loc>http://yoursite.com/2016/05/18/architecture_ios/</loc>
     <lastmod>2016-05-18T14:01:22.000Z</lastmod>
@@ -25,21 +24,20 @@
     </url>
 
     
+    
   <url>
-    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
+    <loc>http://yoursite.com/2016/01/11/qianduan/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
         <display>
-        <title>大家好，我是sunny，博客迁移至Github ，多多关照</title>
-        <pubTime>2016-01-02T11:37:30.000Z</pubTime>
+        <title>做一个不可替代的架构师</title>
+        <pubTime>2016-01-10T16:00:00.000Z</pubTime>
         
-        <tag>iOS</tag>
+        <tag>前端</tag>
          
-        <tag>电子商务</tag>
+        <tag>js</tag>
          
-        <tag>风之痕的博客教程</tag>
-         
-        <tag>sunnycn的博客</tag>
+        <tag>做一个不可替代的架构师</tag>
          
          
            
@@ -58,9 +56,9 @@
         
         <tag>iOS</tag>
          
-        <tag>AOP</tag>
-         
         <tag>电子商务</tag>
+         
+        <tag>AOP</tag>
          
          
            
@@ -124,25 +122,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>基于面向协议MVP模式下的软件设计－iOS篇 </title>
-        <pubTime>2015-12-21T16:00:00.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>电子商务</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2015/10/01/cell_height_calulate/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
@@ -159,6 +138,29 @@
         <tag>AutoLayout</tag>
          
         <tag>FDTemplateLayoutCell</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/01/02/abouts/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>大家好，我是sunny，博客迁移至Github ，多多关照</title>
+        <pubTime>2016-01-02T11:37:30.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>电子商务</tag>
+         
+        <tag>风之痕的博客教程</tag>
+         
+        <tag>sunnycn的博客</tag>
          
          
            
@@ -186,27 +188,6 @@
         <tag>MVP</tag>
          
         <tag>iOS开发框架</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2016/01/11/qianduan/</loc>
-    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>做一个不可替代的架构师</title>
-        <pubTime>2016-01-10T16:00:00.000Z</pubTime>
-        
-        <tag>前端</tag>
-         
-        <tag>js</tag>
-         
-        <tag>做一个不可替代的架构师</tag>
          
          
            
@@ -258,6 +239,25 @@
 
     
   <url>
+    <loc>http://yoursite.com/2015/12/22/mvp-ios/</loc>
+    <lastmod>2016-05-09T14:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>基于面向协议MVP模式下的软件设计－iOS篇 </title>
+        <pubTime>2015-12-21T16:00:00.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>电子商务</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2016/01/10/hexo-course/</loc>
     <lastmod>2016-05-09T14:24:24.000Z</lastmod>
     <data>
@@ -267,11 +267,11 @@
         
         <tag>iOS</tag>
          
-        <tag>电子商务</tag>
-         
         <tag>Hexo教程</tag>
          
         <tag>GitCafe下搭建博客</tag>
+         
+        <tag>电子商务</tag>
          
          
            
